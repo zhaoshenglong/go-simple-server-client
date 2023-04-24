@@ -36,6 +36,6 @@ func ReadMsg(r io.Reader) ([]byte, error) {
 
 func EvalLatency(label string, fn func()) {
 	start := time.Now()
-	defer fmt.Printf("%s took %v ms\n", label, time.Since(start).Milliseconds())
 	fn()
+	fmt.Printf("%s took %v ms\n", label, time.Since(start).Milliseconds())
 }
