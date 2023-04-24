@@ -19,6 +19,7 @@ func main() {
 		conn net.Conn
 		err  error
 	)
+	flag.Parse()
 	if addr, err = net.ResolveTCPAddr("tcp", fmt.Sprintf("%s:%d", *host, *port)); err != nil {
 		fmt.Println("ResolveTCPAddr failed:", err.Error())
 		os.Exit(1)

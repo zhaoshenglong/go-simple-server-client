@@ -12,6 +12,7 @@ var port = flag.Int("port", 5001, "The port to connect to; defaults to 5001.")
 
 // main serves as the program entry point
 func main() {
+	flag.Parse()
 	// create a tcp listener on the given port
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
