@@ -10,14 +10,15 @@ import (
 
 var host = flag.String("host", "localhost", "The hostname or IP to connect to; defaults to \"localhost\".")
 var port = flag.Int("port", 5001, "The port to connect to; defaults to 5001.")
+var size = flag.Int("size", 1024, "The size of message to be sent; defaults to 1024.")
 
 func main() {
 	var (
-		msg  = "Hello,world"
 		res  = make([]byte, 1024)
 		addr *net.TCPAddr
 		conn net.Conn
 		err  error
+		msg  string
 	)
 	flag.Parse()
 	if addr, err = net.ResolveTCPAddr("tcp", fmt.Sprintf("%s:%d", *host, *port)); err != nil {
@@ -31,7 +32,7 @@ func main() {
 			os.Exit(1)
 		}
 	})
-
+	msg = util.RandStringRunes(*size)
 	util.EvalLatency("WriteMsg", func() {
 		util.WriteMsg(conn, []byte(msg))
 		fmt.Println("write to server = ", msg)

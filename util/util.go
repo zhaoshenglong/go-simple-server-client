@@ -4,8 +4,23 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"math/rand"
 	"time"
 )
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func RandStringRunes(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
 
 func WriteMsg(w io.Writer, b []byte) error {
 	var h = make([]byte, 4)
