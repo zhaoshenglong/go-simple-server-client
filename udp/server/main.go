@@ -37,7 +37,7 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-
+		fmt.Printf("Receive msg from %s, %s\n", addr.String(), string(buf))
 		// Write back the message over UPD
 		conn.WriteToUDP(buf, addr)
 	}

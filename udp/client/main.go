@@ -20,6 +20,8 @@ func main() {
 		conn *net.UDPConn
 		err  error
 	)
+
+	flag.Parse()
 	// Resolve the string address to a UDP address
 	if addr, err = net.ResolveUDPAddr("udp", fmt.Sprintf("%s:%d", *host, *port)); err != nil {
 		fmt.Println(err)
@@ -36,19 +38,21 @@ func main() {
 	//
 	// Send a message to the server
 	msg = util.RandStringRunes(*size)
-
 	util.EvalLatency("Write", func() {
 		if _, err = conn.Write([]byte(msg)); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 	})
+	fmt.Printf("Write: %s\n", msg)
 
+	res = make([]byte, *size)
 	util.EvalLatency("Read", func() {
 		if _, err = conn.Read(res); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 	})
+	fmt.Printf("Read: %s\n", string(res))
 
 }
